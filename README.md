@@ -36,3 +36,29 @@ Getting Started
 
   See https://github.com/brianfrankcooper/YCSB/wiki/Core-Properties for 
   the list of available workload properties.
+
+
+Using HdrHistogram to correct for coordinated omission effects
+====================================
+
+This version includes a new Measurement option for recording latencies with
+[HdrHistogram](https://github.com/HdrHistogram/HdrHistogram). Use
+
+    -p measurementtype=hdrhistogram
+
+Or, the combined measurement option allowing old and new measurement side by side:
+
+    -p measurementtype=hdrhistogram+histogram
+
+The HdrHistogram measurement type supports optional logging of HdrHistogram data to a file.
+Control this with
+
+    -p hdrhistogram.fileoutput=<true|false>
+
+and
+
+    -p hdrhistogram.output.path=<path>
+
+The [HistogramLogProcessor](https://github.com/HdrHistogram/HdrHistogram/blob/master/HistogramLogProcessor) script provided with HdrHistogram can process the files (you need to copy the HdrHistogram.jar into the script folder first) into .hgrm files that can be plotted with [plotFiles](https://github.com/HdrHistogram/HdrHistogram/blob/master/GoogleChartsExample/plotFiles.html) to graph latency by percentile distribution.
+
+(Source: [psy-lob-saw](http://psy-lob-saw.blogspot.co.at/2015/03/fixing-ycsb-coordinated-omission.html))
